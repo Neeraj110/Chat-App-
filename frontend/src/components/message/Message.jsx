@@ -1,0 +1,48 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useSelector } from "react-redux";
+import { extractTime } from "../../utils/extractTime";
+
+function Message({ message }) {
+  const user = useSelector((state) => state.auth.user);
+  const selectedConversation = useSelector(
+    (state) => state.conversation.selectedConversation
+  );
+
+  // Ensure message exists before accessing its properties
+  if (!message) {
+    return null; // Return early or handle the null case appropriately
+  }
+
+  const fromMe = message.senderId === user._id;
+  const formattedTime = extractTime(message.createdAt);
+  const chatClassName = fromMe ? "chat-end" : "chat-start";
+  const profilePic = fromMe
+    ? user.profilePic
+    : selectedConversation?.profilePic;
+  const bubbleBgColor = fromMe ? "bg-blue-500" : "";
+  const shakeClass = message.shouldShake ? "shake" : "";
+
+  return (
+    <div className={`chat ${chatClassName}`}>
+      <div className="chat-image avatar">
+        <div className="w-10 rounded-full">
+          <img
+            loading="lazy"
+            alt="User Avatar"
+            src={profilePic}
+          />
+        </div>
+      </div>
+      <div className={`chat-bubble text-white ${bubbleBgColor} ${shakeClass} pb-2`}>
+        {message.message}
+      </div>
+      <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
+        {formattedTime}
+      </div>
+    </div>
+  );
+}
+
+export default Message;
+
