@@ -8,7 +8,7 @@ export const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const signup = async ({ fullName, username, password, gender }) => {
+  const signup = async (fullName, username, password, gender) => {
     setLoading(true);
     try {
       const { data } = await axios.post("/api/auth/signup", {
@@ -19,9 +19,10 @@ export const useSignup = () => {
       });
       dispatch(setCredential(data));
       toast.success("Signup successful");
-      setLoading(false);
     } catch (err) {
-      toast.error("Invalid credentials");
+      console.error("Signup error:", err);
+      toast.error("Failed to signup");
+    } finally {
       setLoading(false);
     }
   };
