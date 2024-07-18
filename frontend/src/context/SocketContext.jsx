@@ -16,6 +16,7 @@ export const SocketContextProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const user = useSelector((state) => state.auth.user);
 
+  // const newSocket = io("https://chat-app-o34r.onrender.com", {
   useEffect(() => {
     if (user) {
       const newSocket = io("https://chat-app-o34r.onrender.com", {

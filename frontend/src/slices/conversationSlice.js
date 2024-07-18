@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedConversation: null,
@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const conversationSlice = createSlice({
-  name: 'conversation',
+  name: "conversation",
   initialState,
   reducers: {
     setSelectedConversation: (state, action) => {
@@ -15,9 +15,13 @@ const conversationSlice = createSlice({
     setMessages: (state, action) => {
       state.messages = action.payload;
     },
+    clearMessages: (state) => {
+      state.messages = [];
+    },
   },
 });
 
-export const { setSelectedConversation, setMessages } = conversationSlice.actions;
+export const { setSelectedConversation, setMessages, clearMessages } =
+  conversationSlice.actions;
 
 export default conversationSlice.reducer;

@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import useGetMessages from "../../hooks/getMessage";
 import useListenMessages from "../../hooks/useListenMessage";
 import Message from "./Message";
@@ -7,6 +8,9 @@ const AllMessages = () => {
   const { messages, loading } = useGetMessages();
   useListenMessages();
   const lastMessageRef = useRef();
+  const selectConversation = useSelector(
+    (state) => state.conversation.selectedConversation
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,10 +21,11 @@ const AllMessages = () => {
   return (
     <div className="px-4 flex-1 overflow-auto">
       {!loading &&
+        selectConversation &&
         Array.isArray(messages) &&
         messages.map((message) => (
           <div key={message._id} ref={lastMessageRef}>
-            <Message message={message}  key={message._id}/>
+            <Message message={message} key={message._id} />
           </div>
         ))}
 

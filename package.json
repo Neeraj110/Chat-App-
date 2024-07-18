@@ -6,13 +6,15 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon backend/index.js",
-		"start": "node backend/index.js",
-		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "start": "node backend/index.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "both": "concurrently \"npm run dev\" \"npm run dev --prefix frontend\""
   },
   "author": "Neeraj",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^8.2.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
